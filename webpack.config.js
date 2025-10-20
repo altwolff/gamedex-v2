@@ -3,16 +3,13 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 
 const isProd = process.env.NODE_ENV === "production";
-const publicPath = isProd
-  ? "/gamedex-v2/"
-  : "/";
 
 module.exports = {
   entry: "./src/index.js",
   output: {
     path: path.resolve(__dirname, "dist"),
     filename: "bundle.[contenthash].js",
-    publicPath: publicPath,
+    publicPath: isProd ? "./" : "/",
   },
   module: {
     rules: [
@@ -24,7 +21,7 @@ module.exports = {
       {
         test: /\.css$/i,
         use: ["style-loader", "css-loader"],
-      }
+      },
     ],
   },
   resolve: {
@@ -34,6 +31,7 @@ module.exports = {
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
       template: "public/index.html",
+      filename: "index.html",
     }),
   ],
   devServer: {
