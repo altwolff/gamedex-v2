@@ -12,7 +12,7 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, "dist"),
     filename: "bundle.[contenthash].js",
-    publicPath: isProd ? "/gamedex-v2/" : "/",
+    publicPath: isProd ? "/gamedex-v2/" : "/", 
   },
 
   module: {
@@ -43,8 +43,7 @@ module.exports = {
       template: "public/index.html",
       filename: "index.html",
       inject: "body",
-      scriptLoading: "defer",
-      publicPath: isProd ? "/gamedex-v2/" : "/",
+      publicPath: "/gamedex-v2/", 
     }),
   ],
 
