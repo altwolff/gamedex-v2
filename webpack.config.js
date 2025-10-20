@@ -5,12 +5,16 @@ const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const isProd = process.env.NODE_ENV === "production";
 
 module.exports = {
+  mode: isProd ? "production" : "development",
+
   entry: "./src/index.js",
+
   output: {
     path: path.resolve(__dirname, "dist"),
     filename: "bundle.[contenthash].js",
     publicPath: isProd ? "/gamedex-v2/" : "/",
   },
+
   module: {
     rules: [
       {
@@ -28,33 +32,37 @@ module.exports = {
       },
     ],
   },
+
   resolve: {
     extensions: [".js", ".jsx"],
   },
+
   plugins: [
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
       template: "public/index.html",
       filename: "index.html",
       inject: "body",
+      scriptLoading: "defer",
+      publicPath: isProd ? "/gamedex-v2/" : "/",
     }),
   ],
+
   devServer: {
-    static: {
-      directory: path.join(__dirname, "public"),
-    },
+    static: path.join(__dirname, "public"),
     port: 3000,
     open: true,
     hot: true,
     historyApiFallback: true,
   },
+
   optimization: {
     splitChunks: {
       chunks: "all",
     },
   },
+
   performance: {
     hints: false,
   },
-  mode: isProd ? "production" : "development",
 };
