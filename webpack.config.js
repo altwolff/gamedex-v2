@@ -9,7 +9,7 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, "dist"),
     filename: "bundle.[contenthash].js",
-    publicPath: isProd ? "./" : "/",
+    publicPath: isProd ? "/gamedex-v2/" : "/",
   },
   module: {
     rules: [
@@ -21,6 +21,10 @@ module.exports = {
       {
         test: /\.css$/i,
         use: ["style-loader", "css-loader"],
+      },
+      {
+        test: /\.(png|jpg|jpeg|gif|svg)$/i,
+        type: "asset/resource",
       },
     ],
   },
@@ -45,6 +49,12 @@ module.exports = {
     historyApiFallback: true,
   },
   optimization: {
-    splitChunks: { chunks: "all" }, 
+    splitChunks: {
+      chunks: "all",
+    },
   },
+  performance: {
+    hints: false,
+  },
+  mode: isProd ? "production" : "development",
 };
